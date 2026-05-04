@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block title %}Apply for Internship - TTSET{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-file-signature me-3" style="color:var(--emerald);"></i>Internship Application</h1>
+        <p>Fill out the form below carefully. All fields are required.</p>
+    </div>
+</div>
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="card-modern">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+
+                        <!-- Personal Info -->
+                        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--emerald);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--emerald-light);">
+                            <i class="fas fa-user me-2"></i>Personal Information
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name *</label>
+                                {{ form.full_name }}
+                                {% if form.full_name.errors %}
+                                <div class="text-danger" style="font-size:12px;margin-top:4px;">{{ form.full_name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Gender *</label>
+                                {{ form.gender }}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Date of Birth *</label>
+                                {{ form.date_of_birth }}
+                            </div>
+                        </div>
+
+                        <!-- Academic Info -->
+                        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--emerald);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--emerald-light);">
+                            <i class="fas fa-graduation-cap me-2"></i>Academic Information
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">School Name *</label>
+                                {{ form.school_name }}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Level of Study *</label>
+                                {{ form.level_of_study }}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Field of Study *</label>
+                                {{ form.field_of_study }}
+                            </div>
+                        </div>
+
+                        <!-- Internship Details -->
+                        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--emerald);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--emerald-light);">
+                            <i class="fas fa-briefcase me-2"></i>Internship Details
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <label class="form-label">Internship Domain *</label>
+                                {{ form.internship_domain }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Start Date *</label>
+                                {{ form.start_date }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">End Date *</label>
+                                {{ form.end_date }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Reason for Applying *</label>
+                                {{ form.reason }}
+                            </div>
+                        </div>
+
+                        <!-- Documents -->
+                        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--emerald);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--emerald-light);">
+                            <i class="fas fa-paperclip me-2"></i>Required Documents
+                        </div>
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">CV / Resume *</label>
+                                {{ form.cv }}
+                                <div style="font-size:11px;color:var(--gray-600);margin-top:4px;">
+                                    <i class="fas fa-info-circle me-1"></i>PDF, DOC, or DOCX format
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">School Recommendation Letter *</label>
+                                {{ form.recommendation_letter }}
+                                <div style="font-size:11px;color:var(--gray-600);margin-top:4px;">
+                                    <i class="fas fa-info-circle me-1"></i>PDF or scanned image
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background:#fff7ed;border:1px solid var(--orange);border-radius:10px;padding:14px 18px;margin-bottom:24px;font-size:13px;color:#92400e;">
+                            <i class="fas fa-exclamation-triangle me-2" style="color:var(--orange);"></i>
+                            <strong>Important:</strong> Ensure all information is accurate. False information will result in disqualification.
+                        </div>
+
+                        <button type="submit" class="btn-emerald" style="font-size:15px;padding:13px 32px;">
+                            <i class="fas fa-paper-plane me-2"></i>Submit Application
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

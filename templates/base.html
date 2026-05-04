@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TTSET GLOBAL LTD - Internship Portal{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --emerald: #059669;
+            --emerald-dark: #047857;
+            --emerald-light: #d1fae5;
+            --orange: #f97316;
+            --orange-dark: #ea580c;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+        }
+        .navbar-main {
+            background: var(--gray-900);
+            padding: 0;
+            border-bottom: 3px solid var(--emerald);
+        }
+        .navbar-brand-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 0;
+            text-decoration: none;
+        }
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--emerald), var(--orange));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: white;
+            font-size: 16px;
+        }
+        .brand-name { font-size: 15px; font-weight: 800; color: white; }
+        .brand-tagline { font-size: 10px; color: var(--emerald); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; }
+        .nav-link-main {
+            color: rgba(255,255,255,0.75) !important;
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 8px 14px !important;
+            border-radius: 7px;
+            transition: all 0.2s;
+        }
+        .nav-link-main:hover { color: white !important; background: rgba(255,255,255,0.08) !important; }
+        .btn-nav-apply {
+            background: var(--orange);
+            color: white !important;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 8px 18px !important;
+        }
+        .btn-nav-apply:hover { background: var(--orange-dark); }
+        .alert { border: none; border-radius: 10px; font-size: 14px; font-weight: 500; }
+        .card-modern {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--gray-200);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .card-modern .card-header {
+            background: var(--gray-900);
+            color: white;
+            padding: 18px 24px;
+            border: none;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .card-modern .card-body { padding: 28px; }
+        .btn-emerald {
+            background: var(--emerald);
+            color: white;
+            border: none;
+            font-weight: 600;
+            border-radius: 9px;
+            padding: 10px 22px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .btn-emerald:hover { background: var(--emerald-dark); color: white; }
+        .btn-orange {
+            background: var(--orange);
+            color: white;
+            border: none;
+            font-weight: 600;
+            border-radius: 9px;
+            padding: 10px 22px;
+            transition: all 0.2s;
+        }
+        .btn-orange:hover { background: var(--orange-dark); color: white; }
+        .form-control, .form-select {
+            border-radius: 9px;
+            border: 1.5px solid var(--gray-200);
+            padding: 10px 14px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--emerald);
+            box-shadow: 0 0 0 3px rgba(5,150,105,0.12);
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-main">
+        <div class="container">
+            <a class="navbar-brand navbar-brand-wrap" href="{% url 'home' %}">
+                <div class="brand-logo">TT</div>
+                <div>
+                    <div class="brand-name">TTSET GLOBAL LTD</div>
+                    <div class="brand-tagline">Internship Portal</div>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-main" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-main" href="{% url 'about' %}">About</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        {% if user.is_staff %}
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-main" href="{% url 'admin_dashboard' %}">Dashboard</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-main" href="{% url 'applicant_dashboard' %}">Dashboard</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-main" href="{% url 'profile' %}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-main" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-main" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn-nav-apply" href="{% url 'register' %}">Apply Now</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% else %}info{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer style="background: var(--gray-900); color: rgba(255,255,255,0.7); padding: 40px 0; margin-top: 80px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="brand-logo" style="margin-right: 12px;">TT</div>
+                        <div>
+                            <div style="font-weight: 800; color: white; font-size: 16px;">TTSET GLOBAL LTD</div>
+                            <div style="font-size: 11px; color: var(--emerald); letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;">Internship Portal</div>
+                        </div>
+                    </div>
+                    <p style="margin: 0; font-size: 14px;">Empowering the next generation of African tech leaders through hands-on internship experiences.</p>
+                </div>
+                <div class="col-md-3">
+                    <h6 style="color: white; font-weight: 700; margin-bottom: 16px;">Quick Links</h6>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="margin-bottom: 8px;"><a href="{% url 'home' %}" style="color: rgba(255,255,255,0.7); text-decoration: none;">Home</a></li>
+                        <li style="margin-bottom: 8px;"><a href="{% url 'about' %}" style="color: rgba(255,255,255,0.7); text-decoration: none;">About</a></li>
+                        <li style="margin-bottom: 8px;"><a href="{% url 'register' %}" style="color: rgba(255,255,255,0.7); text-decoration: none;">Apply</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6 style="color: white; font-weight: 700; margin-bottom: 16px;">Contact</h6>
+                    <p style="margin: 0; font-size: 14px; color: rgba(255,255,255,0.7);">
+                        Email: internships@ttsetglobal.com<br>
+                        Phone: +234 (0) 123 456 7890
+                    </p>
+                </div>
+            </div>
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+            <div class="text-center">
+                <p style="margin: 0; font-size: 13px; color: rgba(255,255,255,0.5);">
+                    &copy; 2026 TTSET GLOBAL LTD. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

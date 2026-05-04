@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% block title %}TTSET GLOBAL LTD - Internship Portal{% endblock %}
+{% block extra_css %}
+<style>
+.hero {
+    background: var(--gray-900);
+    min-height: 88vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(5,150,105,0.2) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 20% 80%, rgba(249,115,22,0.15) 0%, transparent 60%);
+}
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(5,150,105,0.15);
+    border: 1px solid rgba(5,150,105,0.4);
+    color: #34d399;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+.dot-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #34d399;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.hero h1 {
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 800;
+    color: white;
+    line-height: 1.12;
+    margin: 0 0 20px;
+}
+.hero h1 em { font-style: normal; color: var(--emerald); }
+.hero p {
+    color: rgba(255,255,255,0.65);
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 500px;
+    margin-bottom: 32px;
+}
+.btn-hero-primary {
+    background: var(--emerald);
+    color: white;
+    padding: 14px 30px;
+    border-radius: 11px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s;
+    border: 2px solid var(--emerald);
+}
+.btn-hero-primary:hover {
+    background: var(--emerald-dark);
+    color: white;
+    transform: translateY(-2px);
+}
+.btn-hero-secondary {
+    background: transparent;
+    color: rgba(255,255,255,0.8);
+    padding: 14px 30px;
+    border-radius: 11px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 2px solid rgba(255,255,255,0.2);
+    transition: all 0.25s;
+}
+.btn-hero-secondary:hover { color: white; border-color: rgba(255,255,255,0.5); }
+.domain-card {
+    background: var(--gray-50);
+    border: 2px solid var(--gray-200);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: block;
+}
+.domain-card:hover {
+    border-color: var(--emerald);
+    background: var(--emerald-light);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(5,150,105,0.15);
+}
+.domain-card .icon { font-size: 32px; margin-bottom: 14px; }
+.domain-card h5 { font-size: 14px; font-weight: 700; color: var(--gray-900); margin: 0; }
+.cta-section {
+    background: var(--gray-900);
+    padding: 70px 0;
+    text-align: center;
+}
+.cta-section h2 { font-size: 36px; font-weight: 800; color: white; margin-bottom: 14px; }
+.cta-section p { color: rgba(255,255,255,0.6); font-size: 16px; margin-bottom: 32px; }
+</style>
+{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="container" style="position:relative;z-index:1;">
+        <div class="row align-items-center" style="min-height:80vh;">
+            <div class="col-lg-7 py-5">
+                <div class="hero-badge">
+                    <span class="dot-pulse"></span> Now Accepting Applications
+                </div>
+                <h1>Launch Your Career at <em>TTSET GLOBAL LTD</em></h1>
+                <p>Join Africa's leading technology company. Gain hands-on experience, mentorship, and real-world skills across 8 cutting-edge domains.</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="{% url 'apply' %}" class="btn-hero-primary">
+                        <i class="fas fa-rocket"></i> Apply Now
+                    </a>
+                    <a href="{% url 'about' %}" class="btn-hero-secondary">
+                        <i class="fas fa-info-circle"></i> Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="padding: 80px 0; background: white;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--emerald);margin-bottom:12px;">Available Programs</div>
+            <h2 style="font-size:32px;font-weight:800;color:var(--gray-900);">Choose Your Internship Domain</h2>
+            <p class="text-muted mx-auto" style="max-width:500px;">We offer opportunities across 8 industry-leading technology and business domains.</p>
+        </div>
+        <div class="row g-3">
+            {% for icon, domain in domains %}
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="{% url 'apply' %}" class="domain-card">
+                    <div class="icon">{{ icon }}</div>
+                    <h5>{{ domain }}</h5>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Start Your Journey?</h2>
+        <p>Applications are reviewed within 5 business days.</p>
+        <a href="{% url 'register' %}" class="btn-hero-primary" style="display:inline-flex;">
+            <i class="fas fa-user-plus"></i> Create Account & Apply
+        </a>
+    </div>
+</section>
+{% endblock %}

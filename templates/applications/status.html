@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block title %}Application Status - TTSET{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-search me-3" style="color:var(--emerald);"></i>Application Status</h1>
+        <p>Track the progress of your internship application</p>
+    </div>
+</div>
+<div class="container pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {% if application %}
+
+            <!-- Status Timeline -->
+            <div class="card-modern mb-4">
+                <div class="card-header">
+                    <i class="fas fa-timeline me-2"></i>Application Progress
+                </div>
+                <div class="card-body" style="padding:32px;">
+                    <div style="display:flex;align-items:flex-start;justify-content:space-between;position:relative;">
+
+                        <!-- Line behind steps -->
+                        <div style="position:absolute;top:22px;left:10%;right:10%;height:3px;background:var(--gray-200);z-index:0;"></div>
+
+                        {% for step, label in steps %}
+                        <div style="flex:1;text-align:center;position:relative;z-index:1;">
+                            <div style="width:44px;height:44px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;
+                                border:3px solid {% if step == 'done' %}var(--emerald){% elif step == 'active' %}var(--orange){% else %}var(--gray-200){% endif %};
+                                background:{% if step == 'done' %}var(--emerald){% elif step == 'active' %}var(--orange){% else %}white{% endif %};
+                                color:{% if step == 'done' or step == 'active' %}white{% else %}var(--gray-200){% endif %};">
+                                {% if step == 'done' %}
+                                    <i class="fas fa-check"></i>
+                                {% elif step == 'active' %}
+                                    <i class="fas fa-clock"></i>
+                                {% else %}
+                                    <i class="fas fa-circle"></i>
+                                {% endif %}
+                            </div>
+                            <div style="font-size:12px;font-weight:700;
+                                color:{% if step == 'done' %}var(--emerald-dark){% elif step == 'active' %}var(--orange-dark){% else %}var(--gray-600){% endif %};">
+                                {{ label }}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Details -->
+            <div class="card-modern">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-clipboard-list me-2"></i>Application Details</span>
+                    <span class="badge-{% if application.status == 'Approved' %}approved{% elif application.status == 'Rejected' %}rejected{% else %}pending{% endif %}">
+                        {{ application.status }}
+                    </span>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-label">Full Name</div>
+                            <div style="font-size:15px;font-weight:600;">{{ application.full_name }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label">Domain</div>
+                            <span class="domain-pill">{{ application.internship_domain }}</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label">School</div>
+                            <div style="font-size:14px;">{{ application.school_name }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label">Level</div>
+                            <div style="font-size:14px;">{{ application.level_of_study }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label">Start Date</div>
+                            <div style="font-size:14px;">{{ application.start_date|date:"F j, Y" }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label">End Date</div>
+                            <div style="font-size:14px;">{{ application.end_date|date:"F j, Y" }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label">Applied On</div>
+                            <div style="font-size:14px;">{{ application.date_applied|date:"F j, Y g:i A" }}</div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-label">Documents</div>
+                            <div style="display:flex;flex-direction:column;gap:4px;">
+                                {% if application.cv %}
+                                <a href="{{ application.cv.url }}" target="_blank" style="font-size:13px;color:var(--emerald);">
+                                    <i class="fas fa-file-pdf me-1"></i>View CV
+                                </a>
+                                {% endif %}
+                                {% if application.recommendation_letter %}
+                                <a href="{{ application.recommendation_letter.url }}" target="_blank" style="font-size:13px;color:var(--emerald);">
+                                    <i class="fas fa-file-alt me-1"></i>Recommendation Letter
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+            <div style="background:white;border-radius:16px;border:2px dashed var(--gray-200);padding:60px;text-align:center;">
+                <i class="fas fa-inbox" style="font-size:48px;color:var(--gray-200);margin-bottom:16px;display:block;"></i>
+                <h5 style="font-weight:800;margin-bottom:8px;">No Application Found</h5>
+                <p style="color:var(--gray-600);font-size:14px;margin-bottom:24px;">You haven't submitted an application yet.</p>
+                <a href="{% url 'apply' %}" class="btn-emerald" style="text-decoration:none;">
+                    <i class="fas fa-plus me-2"></i>Apply Now
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

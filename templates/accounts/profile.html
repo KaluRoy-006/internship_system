@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}My Profile - TTSET{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-user-circle me-3" style="color:var(--emerald);"></i>My Profile</h1>
+        <p>Manage your account information</p>
+    </div>
+</div>
+<div class="container pb-5">
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card-modern mb-4">
+                <div class="card-body text-center" style="padding:36px 28px;">
+                    <div style="width:80px;height:80px;background:linear-gradient(135deg,var(--emerald),var(--orange));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:white;margin:0 auto 16px;">
+                        {{ user.first_name.0|upper }}{{ user.last_name.0|upper }}
+                    </div>
+                    <h5 style="font-weight:800;margin:0 0 4px;">{{ user.get_full_name }}</h5>
+                    <p style="color:var(--gray-600);font-size:13px;margin:0 0 8px;">{{ user.email }}</p>
+                    <span style="background:var(--emerald-light);color:var(--emerald-dark);padding:3px 12px;border-radius:20px;font-size:12px;font-weight:700;">
+                        Applicant
+                    </span>
+                </div>
+            </div>
+            <div class="card-modern">
+                <div class="card-body" style="padding:20px 24px;">
+                    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray-600);margin-bottom:14px;">
+                        Quick Links
+                    </div>
+                    <a href="{% url 'applicant_dashboard' %}" style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--gray-100);text-decoration:none;color:var(--gray-800);font-size:14px;font-weight:600;">
+                        <i class="fas fa-home" style="color:var(--emerald);width:18px;"></i> My Dashboard
+                    </a>
+                    <a href="{% url 'application_status' %}" style="display:flex;align-items:center;gap:10px;padding:10px 0;text-decoration:none;color:var(--gray-800);font-size:14px;font-weight:600;">
+                        <i class="fas fa-file-alt" style="color:var(--emerald);width:18px;"></i> Application Status
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card-modern">
+                <div class="card-header">
+                    <i class="fas fa-edit me-2"></i>Update Profile Information
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Phone Number</label>
+                                {{ form.phone }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Level of Study</label>
+                                {{ form.level }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">School Name</label>
+                                {{ form.school }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Field of Study</label>
+                                {{ form.field_of_study }}
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn-emerald">
+                                    <i class="fas fa-save me-2"></i>Save Changes
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
