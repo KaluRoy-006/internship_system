@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Register - TTSET Internship Portal{% endblock %}
+{% block content %}
+<div style="min-height:80vh;display:flex;align-items:center;background:var(--gray-50);padding:40px 0;">
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="text-center mb-4">
+                <div style="width:60px;height:60px;background:linear-gradient(135deg,var(--emerald),var(--orange));border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;color:white;font-size:22px;margin:0 auto 16px;">TG</div>
+                <h2 style="font-weight:800;font-size:24px;">Create Your Account</h2>
+                <p style="color:var(--gray-600);font-size:14px;">Already have an account? <a href="{% url 'login' %}" style="color:var(--emerald);font-weight:600;">Sign in</a></p>
+            </div>
+            <div class="card-modern">
+                <div class="card-body">
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <label class="form-label">First Name *</label>
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                <div class="text-danger" style="font-size:12px;margin-top:4px;">{{ form.first_name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label">Last Name *</label>
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                <div class="text-danger" style="font-size:12px;margin-top:4px;">{{ form.last_name.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Email Address *</label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                <div class="text-danger" style="font-size:12px;margin-top:4px;">{{ form.email.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Username *</label>
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                <div class="text-danger" style="font-size:12px;margin-top:4px;">{{ form.username.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone Number *</label>
+                                {{ form.phone }}
+                                {% if form.phone.errors %}
+                                <div class="text-danger" style="font-size:12px;margin-top:4px;">{{ form.phone.errors.0 }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Password *</label>
+                                {{ form.password }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Confirm Password *</label>
+                                {{ form.confirm_password }}
+                            </div>
+                            {% if form.non_field_errors %}
+                            <div class="col-12">
+                                <div class="alert alert-danger py-2">{{ form.non_field_errors.0 }}</div>
+                            </div>
+                            {% endif %}
+                            <div class="col-12">
+                                <button type="submit" class="btn-emerald w-100" style="font-size:15px;padding:12px;">
+                                    <i class="fas fa-user-plus me-2"></i>Create Account
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
